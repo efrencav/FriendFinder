@@ -1,22 +1,17 @@
 {
-  "name": "friends",
+  "name": "friendfinder",
   "version": "1.0.0",
-  "description": "friend finder dating application",
-  "main": "index.js",
+  "description": "",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/efrencav/FriendFinder.git"
   },
-  "keywords": [
-    "friend",
-    "finder",
-    "dating",
-    "application"
-  ],
-  "author": "Efren Cavazos",
+  "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/efrencav/FriendFinder/issues"

@@ -1,71 +1,64 @@
-var express = require('express');
-var path = require("path");
-var router = express.Router();
-var friends = require('../data/friends.json')
-var fs = require("fs");
+var express = require("express");
+var app = express();
+var friendsData = require("../data/friendsData");
 
-// Tell the server to parse JSON bodies in your requests:
-const bodyParser = require("body-parser");
-router.use(bodyParser.json()); // support json encoded bodies
-//Middle ware that is specific to this router
-router.use(function timeLog(req, res, next) {
-  console.log('Time: ', Date.now());
-  next();
+// API GET Requests and Response back a JSON array of objects
+app.get("/api/friends", function(req, res) {
+  res.json(friendsData);
 });
 
-router.get("/api/friends", function (req, res) {
-  // res.json(path.join(__dirname, "../data/friends.js"));
-  return res.json(friends);
-})
+module.exports = function(app) {
+// API POST Requests
+// Below code handles when a user submits a form and thus submits data to the server.
+// In each of the below cases, when a user submits form data (a JSON object)
+// ...the JSON is pushed to the JavaScript array
+app.post("/api/friends", function(req, res) {
+    var newFriend = req.body;
+    
+    //Loop through newFriend scores and convert 
+    //"1 (Strongly Disagree)" and "5 (Strongly Agree)" to 1 and 5 respectively
+    newFriend.scores.forEach(function(score) {
+      if (score.scores == "1 (Strongly Disagree)") {
+        score.scores = 1;
+      }
+      else if (score.scores == "5 (Strongly Agree)") {
+        score.scores = 5;
+      }
+      else {
+        score.scores = parseInt(score.scores);
+      }
+    });//End for loop
 
-router.post("/api/friends", function (req, res) { // In which the new Friend is added to friends.json and compared to all other friend records for a best match
-  var newFriend = req.body; // creates new friend and updates json file
+    //Find Best Match Friend Code Below
+    var bestMatch = {};
+    var matchedFriend = 0;
+    //Maximum different score for ten questions is 40 (40 = 10 questions x 4 <different between 5 and 1 choices>). 
+    //This number is difference based on number of questions and choices of answers
+    var bestMatchedScore = 40;
+    
+    //Loop through all friends array
+    for (var friend = 0; friend < friendsData.length; friend++) {
+      var totalScoresDiff = 0;
+      //Loop through individual's friend scores
+      for (var score = 0; score < friendsData[friend].scores.length; score++) {
+        var diff = Math.abs(friendsData[friend].scores[score] - newFriend.scores[score]);
+        totalScoresDiff += diff;
+      }//End of inner loop
+      //Console log to check if app gives accurate result.
+      console.log(totalScoresDiff, friendsData[friend].name);
+      
+      if (totalScoresDiff < bestMatchedScore) {
+        matchedFriend = friend;
+        bestMatchedScore = totalScoresDiff;
+      }
+    }//End of outter loop
 
-  try { // Grab the friends.json content, append, and write back
-    const friends = JSON.parse(fs.readFileSync("app/data/friends.json"));
-    friends.friends.push(newFriend); // This should be validated properly!
-    fs.writeFileSync("app/data/friends.json", JSON.stringify(friends, null, 2));
-    res.json(friends);
-  } catch (err) {
-    throw err
-  }
+    //bestMatch found
+    bestMatch = friendsData[matchedFriend];
+    //Push new friend to friends array
+    friendsData.push(newFriend);
+    //Return best match friend
+    res.json(bestMatch);
+});
 
-  // loop through friends.friends, excluding if matches newFriend.name
-  const friendComparisonScores = {}
-  friends.friends.forEach((f) => {
-    var currentIterateScore = f.scores;
-    var newFriendScore = newFriend.scores;
-    // create object that lists {"name": matchScore} for each friend
-    friendComparisonScores[f.name] = totalDifference(currentIterateScore, newFriendScore);
-  })
-
-  // ref to output the friend with lowest matchScore
-  console.log(friendComparisonScores);
-  console.log(findClosestScore(friendComparisonScores));
-})
-
-
-//// HELPER FUNCTIONS
-function totalDifference(arr1, arr2) { // compare new friend to all the existing friend objects
-  var difference = 0;
-  arr1.forEach((answer, index) => {
-    difference += Math.abs(answer - arr2[index])
-  });
-  return difference;
-}
-
-function findClosestScore(myjson) {
-  var keys = Object.keys(myjson),
-    // set initial value as first elemnt in array
-    result = keys[0];
-  // iterate over array elements
-  keys.forEach(function (v) {
-    // compare with current property value and update with the min value property
-    result = +myjson[result] > +myjson[v] ? v : result;
-  });
-  return result;
-}
-
-//// END HELPER FUNCTIONS
-
-module.exports = router;
+};

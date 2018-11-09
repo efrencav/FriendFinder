@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Friend Finder - A Dating Application</title>
+
+  <!-- Latest compiled and minified CSS & JS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://code.jquery.com/jquery.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+
+  <div class="container">
+
+    <div class="jumbotron">
+      <h1 class="text-center">Friend Finder Results</h1>
+      <hr>
+      <h2 class="text-center">Current Reservations and Waiting List</h2>
+      <br>
+
+      <div class="text-center">
+        <a href="/survey"><button class="btn btn-lg btn-danger"></span> Take The Survey</button></a>
+        <a href="/"><button class="btn btn-lg btn-default"><span class="fa fa-home"></span></button></a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12">
+
+        <!-- Current Tables in Use -->
+        <div class="card">
+          <div class="card-header">
+            <h4>Your Matches</h4>
+          </div>
+          <div class="card-body">
+            <ul id="friendsList" class="list-group"></ul>
+          </div>
+        </div>
+
+        <!-- Waiting List Card -->
+        <!-- <div class="card mt-4">
+          <div class="card-header">
+            <h4>Waiting List</h4>
+          </div>
+          <div class="card-body">
+            <ul id="waitList" class="list-group"></ul>
+          </div>
+        </div> -->
+      </div>
+    </div>
+
+
+    <footer class="footer mt-4">
+      <div class="container">
+        <p>Control Panel</p>
+        <p><a href="#" id="clear">Clear Table</a> | <a href="/api/friends">API Friends Link</a>
+      </div>
+    </footer>
+
+  </div>
+
+</body>
+
+
+<!-- BELOW CODE IS CRITICAL. IT HANDLES HOW FORM DATA IS LOADED FROM OUR SERVER -->
+<script type="text/javascript">
+
+  // In this code, jQuery is used to "download" the data from our server
+  // We then dynamically display this content in our table. This is very similar to the group projects you just completed.
+  // It's also very similar to the NYT search application. In fact, I copied a ton of code from there.
+
+  function runFriendsQuery() {
+    // The AJAX function uses the URL of our API to GET the data associated with it (initially set to localhost)
+    $.ajax({ url: "/api/friends", method: "GET" })
+      .then(function(friendsData) {
+
+        // Here we then log the friendsData to console, where it will show up as an object.
+        console.log(friendsData);
+        console.log("------------------------------------");
+
+        // Loop through and display each of the customers
+        for (var i = 0; i < friendsData.length; i++) {
+
+          // Get a reference to the friendsList element and populate it with tables
+          var friendsList = $("#friendsList");
+
+          // Then display the fields in the HTML (Section Name, Date, URL)
+          var listItem = $("<li class='list-group-item mt-4'>");
+
+          listItem.append(
+            $("<h3>").text("Result #" + (i + 1)),
+            $("<hr>"),
+            $("<h4>").text("Name: " + friendsData[i].name),
+            $("<h4>").text("Photo: " + friendsData[i].photo),
+            $("<h4>").text("scores: " + friendsData[i].scores)
+          );
+
+          friendsList.append(listItem);
+        }
+      });
+  }
+
+
+  // This function resets all of the data in our tables. This is intended to let you restart a demo.
+  function clearTable() {
+    alert("Clearing...");
+
+    // Clear the tables on the server and then empty the elements on the client
+    $.ajax({ url: "/api/clear", method: "POST" }).then(function() {
+      $("#friendsList").empty();
+    });
+  }
+
+  $("#clear").on("click", clearTable);
+
+
+  // Run Queries!
+  // ==========================================
+  runFriendsQuery();
+
+
+</script>
+
+</html>
