@@ -60,6 +60,7 @@ app.post("/api/friends", function(req, res) {
     //Push new friend to friends array
     friendsData.push(newFriend);
     //Return best match friend
+  // console.log(newFriend);
     res.json(bestMatch);
 });
 
