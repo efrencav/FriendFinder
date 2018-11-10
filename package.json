@@ -1,7 +1,7 @@
 {
   "name": "friendfinder",
   "version": "1.0.0",
-  "description": "",
+  "description": "Friends finder application",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -11,10 +11,21 @@
     "type": "git",
     "url": "git+https://github.com/efrencav/FriendFinder.git"
   },
-  "author": "",
+  "author": "Efren Cavazos",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/efrencav/FriendFinder/issues"
   },
-  "homepage": "https://github.com/efrencav/FriendFinder#readme"
+  "homepage": "https://github.com/efrencav/FriendFinder#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  },
+  "devDependencies": {},
+  "keywords": [
+    "friends",
+    "finder",
+    "application",
+    "node",
+    "express"
+  ]
 }
