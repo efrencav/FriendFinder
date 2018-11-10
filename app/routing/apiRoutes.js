@@ -20,10 +20,10 @@ app.post("/api/friends", function(req, res) {
     //Loop through newFriend scores and convert 
     //"1 (Strongly Disagree)" and "5 (Strongly Agree)" to 1 and 5 respectively
     newFriend.scores.forEach(function(score) {
-      if (score.scores == "1 (Strongly Disagree)") {
+      if (score.scores === "1 (Strongly Disagree)") {
         score.scores = 1;
       }
-      else if (score.scores == "5 (Strongly Agree)") {
+      else if (score.scores === "5 (Strongly Agree)") {
         score.scores = 5;
       }
       else {
