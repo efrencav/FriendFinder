@@ -6,18 +6,16 @@
   <title>Friend Finder - A Dating Application</title>
 
   <!-- Latest compiled and minified CSS & JS -->
-  <script
-  src="https://code.jquery.com/jquery-3.3.1.min.js"
-  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-  crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
-   <!-- Chosen -->
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.css">
- 
-   
+  <!-- Chosen -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.css">
+
+
 
 </head>
 
@@ -202,8 +200,8 @@
   </footer>
   </div>
 
- <!-- Modal -->
- <div id="results-modal" class="modal fade" role="dialog">
+  <!-- Modal -->
+  <div id="results-modal" class="modal fade" role="dialog">
     <div class="modal-dialog">
 
       <!-- Modal content-->
@@ -226,9 +224,82 @@
 </body>
 
 <!-- BELOW CODE IS CRITICAL. IT HANDLES HOW FORM DATA IS SENT TO OUR SERVER -->
-<script type="text/javascript" src="js/app.js"></script>
+<script type="text/javascript">
+//Grab the URL of the website
+var currentURL = window.location.origin;
 
-  
+// Capture the form inputs
+$("#submit").on("click", function (event) {
+  event.preventDefault();
+  console.log("I'm working here");
+  // Form validation
+  function validateForm() {
+    var isValid = true;
+    $(".form-control").each(function () {
+      if ($(this).val() === "") {
+        isValid = false;
+      }
+    });
+
+    $(".chosen-select").each(function () {
+
+      if ($(this).val() === "") {
+        isValid = false;
+      }
+    });
+    return isValid;
+  }
+
+  // If all required fields are filled
+  if (validateForm()) {
+    // Create an object for the user"s data
+    var userData = {
+      name: $("#name").val(),
+      photo: $("#photo").val(),
+      scores: [
+        $("#q1").val(""),
+        $("#q2").val(""),
+        $("#q3").val(""),
+        $("#q4").val(""),
+        $("#q5").val(""),
+        $("#q6").val(""),
+        $("#q7").val(""),
+        $("#q8").val(""),
+        $("#q9").val(""),
+        $("#q10").val("")
+      ]
+    };
+
+    // AJAX post the data to the friends API.
+    $.post(currentURL + "/api/friends", userData, function (data) {
+
+      // Grab the result from the AJAX post so that the best match's name and photo are displayed.
+      $("#match-name").text(data.name);
+      $("#match-img").attr("src", data.photo);
+
+      // Show the modal with the best match
+      $("#results-modal").modal("toggle");
+      $("#name").val("");
+      $("#photo").val("");
+      $(".modal-footer").html("<h3>FriendFinder</h3>");
+
+    });
+
+    $('#closeModal').click(function(){
+      $.get('/', function(req, res){
+        location.replace(res);
+      });
+    });
+  } else {
+          $(".modal-title").text("Missing Required Information");
+          $(".modal-body").html("<h3>Please answer all questions to help finding your best match.</h3>");
+          $(".modal-footer").html("<h3>FriendFinder</h3>");
+          $("#resultsModal").modal('toggle');
+  }
+});
+
+
+
 </script>
 
 </html>

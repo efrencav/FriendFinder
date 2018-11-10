@@ -2,12 +2,14 @@ var express = require("express");
 var app = express();
 var friendsData = require("../data/friendsData");
 
-// API GET Requests and Response back a JSON array of objects
+
+
+module.exports = function(app) {
+
+  // API GET Requests and Response back a JSON array of objects
 app.get("/api/friends", function(req, res) {
   res.json(friendsData);
 });
-
-module.exports = function(app) {
 // API POST Requests
 // Below code handles when a user submits a form and thus submits data to the server.
 // In each of the below cases, when a user submits form data (a JSON object)

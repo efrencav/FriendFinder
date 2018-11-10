@@ -41,16 +41,6 @@
             <ul id="friendsList" class="list-group"></ul>
           </div>
         </div>
-
-        <!-- Waiting List Card -->
-        <!-- <div class="card mt-4">
-          <div class="card-header">
-            <h4>Waiting List</h4>
-          </div>
-          <div class="card-body">
-            <ul id="waitList" class="list-group"></ul>
-          </div>
-        </div> -->
       </div>
     </div>
 
@@ -107,7 +97,7 @@
 
 
   // This function resets all of the data in our tables. This is intended to let you restart a demo.
-  function clearTable() {
+  function clearFriends() {
     alert("Clearing...");
 
     // Clear the tables on the server and then empty the elements on the client
@@ -116,7 +106,7 @@
     });
   }
 
-  $("#clear").on("click", clearTable);
+  $("#clear").on("click", clearFriends);
 
 
   // Run Queries!

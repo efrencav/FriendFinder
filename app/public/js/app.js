@@ -1,5 +1,5 @@
 //Grab the URL of the website
-const currentURL = window.location.origin;
+var currentURL = window.location.origin;
 
 // Capture the form inputs
 $("#submit").on("click", function (event) {
@@ -7,7 +7,7 @@ $("#submit").on("click", function (event) {
   console.log("I'm working here");
   // Form validation
   function validateForm() {
-    const isValid = true;
+    var isValid = true;
     $(".form-control").each(function () {
       if ($(this).val() === "") {
         isValid = false;
@@ -26,7 +26,7 @@ $("#submit").on("click", function (event) {
   // If all required fields are filled
   if (validateForm()) {
     // Create an object for the user"s data
-    const userData = {
+    var userData = {
       name: $("#name").val(),
       photo: $("#photo").val(),
       scores: [
@@ -41,7 +41,7 @@ $("#submit").on("click", function (event) {
         $("#q9").val(""),
         $("#q10").val("")
       ]
-    }
+    };
 
     // AJAX post the data to the friends API.
     $.post(currentURL + "/api/friends", userData, function (data) {
@@ -61,7 +61,7 @@ $("#submit").on("click", function (event) {
     $('#closeModal').click(function(){
       $.get('/', function(req, res){
         location.replace(res);
-      })
+      });
     });
   } else {
           $(".modal-title").text("Missing Required Information");
@@ -70,3 +70,4 @@ $("#submit").on("click", function (event) {
           $("#resultsModal").modal('toggle');
   }
 });
+
