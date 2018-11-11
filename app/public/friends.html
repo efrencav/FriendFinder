@@ -3,28 +3,29 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Friend Finder - A Dating Application</title>
+  <title>Friend Finder - Application</title>
 
   <!-- Latest compiled and minified CSS & JS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://code.jquery.com/jquery.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
 
 </head>
 
-<body>
+<body class="bg-black">
 
   <div class="container">
 
     <div class="jumbotron">
-      <h1 class="text-center">Friend Finder Results</h1>
+      <h1 class="text-center text-white">Possible Friend Finder Matches</h1>
       <hr>
-      <h2 class="text-center">Current Reservations and Waiting List</h2>
+      <!-- <h2 class="text-center">Current Reservations and Waiting List</h2> -->
       <br>
 
       <div class="text-center">
-        <a href="/survey"><button class="btn btn-lg btn-danger"></span> Take The Survey</button></a>
+        <a href="/survey"><button class="btn btn-lg btn-danger"></span> Take the Survey</button></a>
         <a href="/"><button class="btn btn-lg btn-default"><span class="fa fa-home"></span></button></a>
       </div>
     </div>
@@ -38,6 +39,8 @@
             <h4>Your Matches</h4>
           </div>
           <div class="card-body">
+            <!-- Linked photo image -->
+            
             <ul id="friendsList" class="list-group"></ul>
           </div>
         </div>
@@ -83,11 +86,11 @@
           var listItem = $("<li class='list-group-item mt-4'>");
 
           listItem.append(
-            $("<h3>").text("Result #" + (i + 1)),
+            $("<h6>").text("Result #" + (i + 1)).addClass("text-black"),
             $("<hr>"),
-            $("<h4>").text("Name: " + friendsData[i].name),
-            $("<h4>").text("Photo: " + friendsData[i].photo),
-            $("<h4>").text("scores: " + friendsData[i].scores)
+            $("<p>").text("Name: " + friendsData[i].name).addClass("text-black text-medium"),
+            $("<p>").text("Photo: " + friendsData[i].photo).addClass("text-black text-medium"),  
+            $("<p>").text("Scores: " + friendsData[i].scores).addClass("text-black text-medium")
           );
 
           friendsList.append(listItem);
