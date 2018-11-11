@@ -62,7 +62,13 @@ header {
     margin-top: auto;
     margin-bottom: auto;}
     
-
+.jumbotron-two {
+    width: 80%;
+    background-color: rgba(0, 0, 0, 0.8);
+    margin-left: auto; 
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;}
 
 /* Headings */
 h1 {font-size:40px; line-height:45px;}
@@ -86,7 +92,6 @@ h6 {font-size:25px; line-height:30px;}
 .bg-teal {background-color:#4aaaa5;}
 .bg-black-opacity-light { background-color: rgba(0, 0, 0, 0.5); }
 .bg-orange-opacity {background-color: rgba(240, 84, 68, 0.85);}
-.bg-charcoal-gray{background-color: #0e0f10;}
 
 /* text size */
 .text-small {font-size:16px; line-height:23px;}
@@ -403,7 +408,7 @@ h6 {font-size:25px; line-height:30px;}
 ====================================== */
 
 .center-col {float:none; margin-left:auto; margin-right:auto }
-section {padding: 130px 0; overflow: hidden;}
+section {padding: 80px 0; overflow: hidden;}
 section.big-section {padding:160px 0;}
 section.extra-big-section {padding:200px 0;}
 section.half-section {padding:80px 0;}
