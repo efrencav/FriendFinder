@@ -14,15 +14,13 @@
 
   <!-- Chosen -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.css">
-
-
+  <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
 
 </head>
 
-<body>
-
-  <div class="container">
-    <div class="jumbotron bg-dark text-white text-center">
+<body <div class="container">
+  <div class="jumbotron-two border-radius padding-50px-top padding-20px-bottom">
+    <div class="text-white text-center">
       <h2>Complete the Survey Questions Below</h2>
     </div>
   </div>
@@ -39,19 +37,19 @@
           <input type="text" id="photo" class="form-control" required>
         </div>
         <!-- line separator -->
-          <!-- Question 1 -->
-          <div class="col-6 mt-3">
-            <h4>Question 1</h4>
-            <p>I am frequently invited to represent the views of others.</p>
-            <select class="chosen-select" id="q1">
-              <option value=""></option>
-              <option value="1">1 (Strongly Disagree)</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5 (Strongly Agree)</option>
-            </select>
-          </div>
+        <!-- Question 1 -->
+        <div class="col-6 mt-3">
+          <h4>Question 1</h4>
+          <p>I am frequently invited to represent the views of others.</p>
+          <select class="chosen-select" id="q1">
+            <option value=""></option>
+            <option value="1">1 (Strongly Disagree)</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5 (Strongly Agree)</option>
+          </select>
+        </div>
         <!-- Close Question 1 -->
 
         <!-- Question 2 -->
@@ -192,17 +190,15 @@
       </div>
       <br>
       <button type="submit" class="btn btn-dark btn-lg text-white" id="submit">Submit</button>
-      <hr>
     </section>
+    <hr>
   </div>
   <!-- Footer -->
   <footer class="footer">
-    <div class="container">
-      <p>
-        <a href="/">Home</a> | <a href="/friends">Possible Friend Finder Matches</a> | <a href="/api/friends">API Friends JSON</a>
-    </div>
+    <a href="/">Home</a> | <a href="/friends">Possible Friend Finder Matches</a> | <a href="/api/friends">API Friends
+      JSON</a>
   </footer>
-  </div>
+
 
   <!-- Modal -->
   <div id="results-modal" class="modal fade" role="dialog">
